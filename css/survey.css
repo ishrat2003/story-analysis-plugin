@@ -1,0 +1,9 @@
+button {
+    height: 30px;
+    width: 30px;
+    outline: none;
+}
+
+.lcContent {
+    background-color: "#C9E4C5";
+}

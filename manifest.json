@@ -1,0 +1,26 @@
+{
+    "name": "Story survey",
+    "version": "0.01",
+    "description": "User survey on contextual story",
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "storage",
+        "declarativeContent",
+        "activeTab"
+    ],
+    "icons": {
+        "16": "images/logo-16.jpg",
+        "32": "images/logo-32.jpg",
+        "48": "images/logo-48.jpg",
+        "128": "images/logo-128.jpg"
+    },
+    "manifest_version": 2
+}
