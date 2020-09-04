@@ -7,3 +7,10 @@ button {
 .lcContent {
     background-color: "#C9E4C5";
 }
+
+.storySurveyPopup {
+    background-color: "#FFFFFF";
+    width: 450px;
+    height: 800px;
+}
+
