@@ -7,12 +7,13 @@ function updateLc(lcResponse, browserId) {
     $('#lcTitle').html('<h2 class="lcMainTitle">' + lcResponse['title'] + '</h2>');
     $('#lcLoading').hide();
     $('#lcVizualization').html('');
-    var data = [
-        {name: '← Finland222', size: 58, color: 'proper_noun'},
-        {name: 'Finland1', size: 8, color: 'noun'},
-        {name: 'Finland2', size: 28, color: 'verb'}
-    ];
-    displayLc(data);
+    // var data = [
+    //     {name: '← Finland222', size: 58, color: 'proper_noun'},
+    //     {name: 'Finland1', size: 8, color: 'noun'},
+    //     {name: 'Finland2', size: 28, color: 'verb'}
+    // ];
+    console.log(lcResponse);
+    displayLc(lcResponse['topics']);
     $('#storySurVerForm').show();
 
     chrome.tabs.executeScript(null, { file: "js/jquery-3.5.1.min.js" }, function() {

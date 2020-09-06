@@ -10,8 +10,8 @@ var lcColor = {
 function displayLc(data){
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
-  width = 460 - margin.left - margin.right,
-  height = 460 - margin.top - margin.bottom,
+  width = 400 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom,
   innerRadius = 100,
   outerRadius = Math.min(width, height) / 4;   // the outerRadius goes from the middle of the SVG area to the border
 
@@ -49,7 +49,7 @@ function displayLc(data){
   //   .attr("class", "yo")
   //   .attr("d", d3.arc()     // imagine your doing a part of a donut plot
   //       .innerRadius(innerRadius)
-  //       .outerRadius(function(d) { return y(d.size); })
+  //       .outerRadius(function(d) { return y(d.count); })
   //       .startAngle(function(d) { return x(d.name); })
   //       .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
   //       .padAngle(0.01)
@@ -61,9 +61,9 @@ function displayLc(data){
     .data(data)
     .enter()
     .append("g")
-      .style("fill", function(d){return lcColor[d.color];})
+      .style("fill", function(d){return lcColor[d.color_group];})
       .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d.size)+10) + ",0)"; })
+      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d.count)+10) + ",0)"; })
     .append("text")
       .text(function(d){return(d.name)})
       .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
@@ -76,10 +76,10 @@ function displayLc(data){
     .data(data)
     .enter()
     .append("path")
-    .attr("fill", function(d) { return lcColor[d.color]; })
+    .attr("fill", function(d) { return lcColor[d.color_group]; })
     .attr("d", d3.arc()     // imagine your doing a part of a donut plot
       .innerRadius( function(d) { return ybis(0) })
-      .outerRadius( function(d) { return ybis(d.size); })
+      .outerRadius( function(d) { return ybis(d.count); })
       .startAngle(function(d) { return x(d.name); })
       .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
       .padAngle(0.01)
