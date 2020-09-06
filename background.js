@@ -33,6 +33,7 @@ function saveStoryInput(storyInput, key, value){
 
 function readLc(storyInput, browserId) {
   saveStoryInput(storyInput, 'browserId', browserId);
+  
   $.ajax(analysisUrl + "/lc", {
     data: JSON.stringify(storyInput),
     method: "POST",
