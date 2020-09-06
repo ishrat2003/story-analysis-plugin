@@ -4,10 +4,23 @@
     "description": "User survey on contextual story",
     "background": {
         "scripts": [
+            "js/jquery-3.5.1.min.js",
             "background.js"
         ],
         "persistent": false
     },
+    "content_scripts": [{
+        "matches": [
+            "<all_urls>"
+        ],
+        "js": [
+            "js/jquery-3.5.1.min.js",
+            "content.js"
+        ],
+        "css": [
+            "css/survey.css"
+        ]
+    }],
     "page_action": {
         "default_popup": "popup.html"
     },

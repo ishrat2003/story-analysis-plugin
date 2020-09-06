@@ -4,13 +4,38 @@ button {
     outline: none;
 }
 
-.lcContent {
-    background-color: "#C9E4C5";
+.lcTopTitle {
+    color: #0f9f14;
+    text-align: center;
+}
+
+.lcMainTitle {
+    color: #4CAF50;
+    text-align: center;
+}
+
+.lcAdditionalTitle {
+    color: #4CAF50;
+    text-align: center;
 }
 
 .storySurveyPopup {
-    background-color: "#FFFFFF";
+    background-color: #FFFFFF;
     width: 450px;
     height: 800px;
 }
 
+.addBorderShow {
+    background-color: #c2da99;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+br.clear {
+    clear: both;
+}
