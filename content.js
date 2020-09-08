@@ -2,29 +2,36 @@ var content = '';
 var maxPCount = 0;
 var storyInput = {};
 
-function init(){
-    storyInput = {
+function init(tabId) {
+    storyInput[tabId] = {
         'title': $('h1').eq(0).text(),
         'description': $('meta[name=description]').attr("content"),
         'link': $(location).attr('href'),
         'pubDate': $('.date').data('datetime')
     };
+
     $("div").each(function () {
-        setWinningDivContent(this);
+        setWinningDivContent(this, tabId);
     });
-    chrome.runtime.sendMessage({type: "storyFetch", options: { 
-        message: storyInput
-    }});
+
+    chrome.runtime.sendMessage({
+        type: "storyFetchBackgroundLc", 
+        tabId: tabId,
+        options: {
+            message: storyInput
+        }
+    });
+
     chrome.storage.local.set({
         'storyInput': storyInput
     });
 }
 
-function setWinningDivContent(div) {
+function setWinningDivContent(div, tabId) {
     var totalChildren = 0;
     $(div).children().each(function () {
         if ($(this).is('div')) {
-            setWinningDivContent(this);
+            setWinningDivContent(this, tabId);
         }
         if ($(this).is('p') || $(this).is('ul')) totalChildren++;
     });
@@ -33,7 +40,7 @@ function setWinningDivContent(div) {
         $('p, ul').removeClass('addBorder');
         maxPCount = totalChildren;
         content = getDivContent(div);
-        storyInput['content'] = content;
+        storyInput[tabId]['content'] = content;
     }
 }
 
@@ -68,8 +75,11 @@ function getDivContent(div) {
     });
     return childContent;
 }
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.type == "storyContentLoadText") init(request.tabId);
+    sendResponse();
+});
 
 
 $(function () {
-    init();
 });

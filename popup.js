@@ -1,17 +1,29 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.type == "storyUpdateLc") updateLc(request.options, sender['id']);
+    if (request.type == "storyPopupUpdateLc") updateLc(request.options.message, request.tabId);
     sendResponse();
 });
 
-function updateLc(lcResponse, browserId) {
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var reload = true;
+    chrome.storage.local.get(function(result){
+        if(result['storyInput'][tabs[0].id]['lc']){
+            lcResponse = result['storyInput'][tabs[0].id]['lc'];
+            lcResponse['title'] = result['storyInput'][tabs[0].id]['title'];
+            lcResponse['topics'][0]['name'] = '←' + lcResponse['topics'][0]['name'];
+            updateLc(lcResponse, tabs[0].id);
+            reload = false;
+        }
+    });
+
+    if (reload) {
+        chrome.tabs.sendMessage(tabs[0].id, {type: "storyContentLoadText", tabId: tabs[0].id});
+    }
+});
+
+function updateLc(lcResponse, tabId) {
     $('#lcTitle').html('<h2 class="lcMainTitle">' + lcResponse['title'] + '</h2>');
     $('#lcLoading').hide();
     $('#lcVizualization').html('');
-    // var data = [
-    //     {name: '← Finland222', size: 58, color: 'proper_noun'},
-    //     {name: 'Finland1', size: 8, color: 'noun'},
-    //     {name: 'Finland2', size: 28, color: 'verb'}
-    // ];
     console.log(lcResponse);
     displayLc(lcResponse['topics']);
     $('#storySurVerForm').show();

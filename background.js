@@ -20,30 +20,34 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.type == "storyFetch") readLc(request.options.message, sender['id']);
+  if (request.type == "storyFetchBackgroundLc") readLc(request.options.message, request.tabId);
   sendResponse();
 });
 
-function saveStoryInput(storyInput, key, value){
-  storyInput[key] = value;
+function saveStoryInput(storyInput, key, value, tabId){
+  storyInput[tabId][key] = value;
   chrome.storage.local.set({
     'storyInput': storyInput
   });
 }
 
-function readLc(storyInput, browserId) {
-  saveStoryInput(storyInput, 'browserId', browserId);
-  
+function readLc(storyInput, tabId) {
   $.ajax(analysisUrl + "/lc", {
-    data: JSON.stringify(storyInput),
+    data: JSON.stringify(storyInput[tabId]),
     method: "POST",
     contentType: "application/json"
   }).done(function (data) {
-    console.log(data);
-    saveStoryInput(storyInput, 'lc', data);
-    var options = data;
-    options['title'] = storyInput['title'];
-    chrome.runtime.sendMessage({type: "storyUpdateLc", options: options});
+    saveStoryInput(storyInput, 'lc', data, tabId);
+    var lcData = data;
+    lcData['title'] = storyInput['title'];
+    lcData['topics'][0]['name'] = '←' + lcData['topics'][0]['name'];
+    chrome.runtime.sendMessage({
+      type: "storyPopupUpdateLc",
+      tabId: tabId, 
+      options: {
+        message: data
+      }
+    });
   });
 }
 
