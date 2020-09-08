@@ -7,7 +7,7 @@ var lcColor = {
   "positive": "E4F633",
   "negative": "#F7C27C"
 };
-function displayLc(data){
+function displayLc(data, statFiedName){
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 400 - margin.left - margin.right,
@@ -49,7 +49,7 @@ function displayLc(data){
   //   .attr("class", "yo")
   //   .attr("d", d3.arc()     // imagine your doing a part of a donut plot
   //       .innerRadius(innerRadius)
-  //       .outerRadius(function(d) { return y(d.count); })
+  //       .outerRadius(function(d) { return y(d[statFiedName]); })
   //       .startAngle(function(d) { return x(d.name); })
   //       .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
   //       .padAngle(0.01)
@@ -63,7 +63,7 @@ function displayLc(data){
     .append("g")
       .style("fill", function(d){return lcColor[d.color_group];})
       .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d.count)+10) + ",0)"; })
+      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")"+"translate(" + (y(d[statFiedName])+10) + ",0)"; })
     .append("text")
       .text(function(d){return(d.name)})
       .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
@@ -79,7 +79,7 @@ function displayLc(data){
     .attr("fill", function(d) { return lcColor[d.color_group]; })
     .attr("d", d3.arc()     // imagine your doing a part of a donut plot
       .innerRadius( function(d) { return ybis(0) })
-      .outerRadius( function(d) { return ybis(d.count); })
+      .outerRadius( function(d) { return ybis(d[statFiedName]); })
       .startAngle(function(d) { return x(d.name); })
       .endAngle(function(d) { return x(d.name) + x.bandwidth(); })
       .padAngle(0.01)

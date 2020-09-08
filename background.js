@@ -11,9 +11,6 @@ var rule1 = {
 };
 
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.sync.set({ color: '#3aa757' }, function () {
-    console.log("The color is green.");
-  });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([rule1]);
   });
@@ -32,6 +29,7 @@ function saveStoryInput(storyInput, key, value, tabId){
 }
 
 function readLc(storyInput, tabId) {
+  var title = storyInput[tabId]['title'];
   $.ajax(analysisUrl + "/lc", {
     data: JSON.stringify(storyInput[tabId]),
     method: "POST",
@@ -39,13 +37,13 @@ function readLc(storyInput, tabId) {
   }).done(function (data) {
     saveStoryInput(storyInput, 'lc', data, tabId);
     var lcData = data;
-    lcData['title'] = storyInput['title'];
+    lcData['title'] = title;
     lcData['topics'][0]['name'] = '←' + lcData['topics'][0]['name'];
     chrome.runtime.sendMessage({
       type: "storyPopupUpdateLc",
       tabId: tabId, 
       options: {
-        message: data
+        message: lcData
       }
     });
   });

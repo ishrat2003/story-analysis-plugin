@@ -4,20 +4,20 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var reload = true;
+    
     chrome.storage.local.get(function(result){
+        var reload = true;
         if(result['storyInput'][tabs[0].id]['lc']){
             lcResponse = result['storyInput'][tabs[0].id]['lc'];
             lcResponse['title'] = result['storyInput'][tabs[0].id]['title'];
             lcResponse['topics'][0]['name'] = '←' + lcResponse['topics'][0]['name'];
             updateLc(lcResponse, tabs[0].id);
-            reload = false;
+            //reload = false;
+        }
+        if (reload) {
+            chrome.tabs.sendMessage(tabs[0].id, {type: "storyContentLoadText", tabId: tabs[0].id});
         }
     });
-
-    if (reload) {
-        chrome.tabs.sendMessage(tabs[0].id, {type: "storyContentLoadText", tabId: tabs[0].id});
-    }
 });
 
 function updateLc(lcResponse, tabId) {
@@ -25,7 +25,7 @@ function updateLc(lcResponse, tabId) {
     $('#lcLoading').hide();
     $('#lcVizualization').html('');
     console.log(lcResponse);
-    displayLc(lcResponse['topics']);
+    displayLc(lcResponse['topics'], 'count');
     $('#storySurVerForm').show();
 
     chrome.tabs.executeScript(null, { file: "js/jquery-3.5.1.min.js" }, function() {
