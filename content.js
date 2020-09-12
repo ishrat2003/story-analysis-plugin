@@ -3,6 +3,23 @@ var maxPCount = 0;
 var storyInput = {};
 
 function init(tabId) {
+    loadContent(tabId);
+    
+    if(storyInput[tabId]['content']){
+        chrome.runtime.sendMessage({
+            type: "storyFetchBackgroundLc", 
+            tabId: tabId,
+            options: {
+                message: storyInput
+            }
+        });
+    }
+}
+
+function loadContent(tabId){
+    content = '';
+    maxPCount = 0;
+
     storyInput[tabId] = {
         'title': $('h1').eq(0).text(),
         'description': $('meta[name=description]').attr("content"),
@@ -14,17 +31,10 @@ function init(tabId) {
         setWinningDivContent(this, tabId);
     });
 
-    chrome.runtime.sendMessage({
-        type: "storyFetchBackgroundLc", 
-        tabId: tabId,
-        options: {
-            message: storyInput
-        }
-    });
-
     chrome.storage.local.set({
         'storyInput': storyInput
     });
+
 }
 
 function setWinningDivContent(div, tabId) {
@@ -33,11 +43,11 @@ function setWinningDivContent(div, tabId) {
         if ($(this).is('div')) {
             setWinningDivContent(this, tabId);
         }
-        if ($(this).is('p') || $(this).is('ul')) totalChildren++;
+        if ($(this).is('p') || $(this).is('ul') || $(this).is('h2')) totalChildren++;
     });
 
     if (totalChildren > maxPCount) {
-        $('p, ul').removeClass('addBorder');
+        $('p, ul, h2').removeClass('addBorder');
         maxPCount = totalChildren;
         content = getDivContent(div);
         storyInput[tabId]['content'] = content;
@@ -58,7 +68,7 @@ function shouldIncludeText(text) {
 function getDivContent(div) {
     var childContent = '';
     $(div).children().each(function () {
-        if ($(this).is('p') || $(this).is('ul')) {
+        if ($(this).is('p') || $(this).is('ul') || $(this).is('h2')) {
             var text = '';
             if ($(this).is('ul')) {
                 $(this).children().each(function () {

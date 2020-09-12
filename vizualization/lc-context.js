@@ -8,6 +8,7 @@ var lcColor = {
   "negative": "#F7C27C"
 };
 function displayLc(data, statFiedName){
+  console.log('----- display lc', data);
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 400 - margin.left - margin.right,

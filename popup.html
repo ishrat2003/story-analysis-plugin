@@ -12,99 +12,10 @@
         <script src="vizualization/lc-context.js"></script>
         <script src="vizualization/gc-context.js"></script>
         <script src="vizualization/rc-context.js"></script>
-        <script src="vizualization/tab.js"></script>
         <script src="popup.js"></script>
     </head>
     <body class="storySurveyPopup">
-      <div class="container">
-        <h1 class="lcTopTitle">Story Survey</h1>
-        <p class="lcAdditionalTitle">Contextual storytelling</p>
-
-        <div class="tab">
-          <button class="tablinks" data-divid="local">Local</button>
-          <button class="tablinks" data-divid="relative">Relative</button>
-          <button class="tablinks" data-divid="global">Global</button>
-          <button class="tablinks" data-divid="about">About</button>
-        </div>
-
-        <div id="local" class="tabcontent" style="display:block;">
-          <div id="lcLoading" class="center"><img class="center" src="images/loading.gif" alt="Loading"></div>
-          <div id="lcTitle"></div>
-          <div id="lcVizualization"></div>
-          <form id="storySurVerForm" style="display:none;" action="javascript:void(0);">
-            <input type="hidden" id="browserId" name="browserId">
-            <label for="fname">Email</label>
-            <input type="text" id="email" name="email" placeholder="Your email..">
-
-            <label for="country">Profession</label>
-            <select id="country" name="country">
-              <option value="">Please Select</option>
-              <option value="Academic">Academic</option>
-              <option value="Student">Student</option>
-              <option value="Developer">Software Developer</option>
-              <option value="Management">Management</option>
-              <option value="Others">Others </option>
-            </select>
-
-            <label for="rate">Does the visualization reflects the story of this news? (1 = no, 5 = yes)</label><br>
-            <div class="rating">
-              <input type="radio" id="star5" name="lc_viz_rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-              <input type="radio" id="star4" name="lc_viz_rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-              <input type="radio" id="star3" name="lc_viz_rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-              <input type="radio" id="star2" name="lc_viz_rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-              <input type="radio" id="star1" name="lc_viz_rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-            </div>
-
-            <br class="clear" />
-            <br class="clear" />
-            <label for="rate">Please select the best narrative for this local contextual analysis</label><br>
-            <div class="control-group">
-              <label class="control control-radio">
-                  <span>Meta description</span>
-                  <input type="radio" name="lc_summary" value="meta_description"/>
-                  <div class="control_indicator"></div>
-              </label>
-              <label class="control control-radio">
-                  <span>First paragraph</span>
-                  <input type="radio" name="lc_summary" value="first_paragraph"/>
-                  <div class="control_indicator"></div>
-              </label>
-              <label class="control control-radio">
-                  <span>Story</span>
-                  <input type="radio" name="lc_summary" value="story"/>
-                  <div class="control_indicator"></div>
-              </label>
-            </div>
-
-            <br class="clear" />
-            <br class="clear" />
-            <label for="subject">Your narrative about this news. (2 sentences)</label>
-            <textarea id="lc_user_summary" name="lc_user_summary" placeholder="Please include information about WHO, WHEN,WHAT, WHERE in the first sentence. Please include actions and conclusion statement in the last sentence." style="height:200px"></textarea>
-
-            <br class="clear" />
-            <br class="clear" />
-            <input type="submit" id="storySurveySubmit" value="Submit">
-          </form>
-        </div>
-
-        <div id="relative" class="tabcontent" style="display:none;">
-          <div id="relativeLoading" class="center"><img class="center" src="images/loading.gif" alt="Loading"></div>
-          <div id="relativeTitle">@wip relative</div>
-          <div id="relativeVizualization"></div>
-        </div>
-
-        <div id="global" class="tabcontent" style="display:none;">
-          <div id="globalLoading" class="center"><img class="center" src="images/loading.gif" alt="Loading"></div>
-          <div id="globalTitle">@wip global</div>
-          <div id="globalVizualization"></div>
-        </div>
-
-        <div id="about" class="tabcontent" style="display:none;">
-          <div id="aboutTitle">Story survey is an academic project.</div>
-          <p>More explanation about what is what</p>
-          <div id="thankYou" class="center"><img class="center" src="images/ThankYou.svg" alt="Thank You"></div>
-        </div>
-      
-      </div>
+      <div id="container" class="container"></div>
+      <div id="tabs"></div>
     </body>
   </html>

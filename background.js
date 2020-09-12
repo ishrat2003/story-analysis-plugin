@@ -30,6 +30,7 @@ function saveStoryInput(storyInput, key, value, tabId){
 
 function readLc(storyInput, tabId) {
   var title = storyInput[tabId]['title'];
+
   $.ajax(analysisUrl + "/lc", {
     data: JSON.stringify(storyInput[tabId]),
     method: "POST",
