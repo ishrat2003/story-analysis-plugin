@@ -1,14 +1,13 @@
 var lcColor = {
-  "proper_noun": "#9FEE15",
-  "noun": "#87CA11",
-  "adjective": "#F06B08",
-  "adverb": "#FB4C37",
-  "verb": "#58BBF5",
-  "positive": "E4F633",
-  "negative": "#F7C27C"
+  "proper_noun": "#2d7b30",
+  "noun": "#15f01cb3",
+  "adjective": "#f58207",
+  "adverb": "#616361",
+  "verb": "#0d74f2",
+  "positive": "#ffd700",
+  "negative": "#f71f07"
 };
 function displayLc(data, statFiedName){
-  console.log('----- display lc', data);
   // set the dimensions and margins of the graph
   var margin = {top: 10, right: 10, bottom: 10, left: 10},
   width = 400 - margin.left - margin.right,

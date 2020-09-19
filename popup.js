@@ -35,16 +35,19 @@ function loadHide(){
     $('#lcVizualization').html('');
     $('#storySurveyForm').hide();
     $('#lcTitle').hide();
+    $('#lcRaw').hide();
 }
 
 function updateLc(lcResponse) {
     $('#lcTitle').html('<h2 class="lcMainTitle">' + lcResponse['title'] + '</h2>');
+    showRaw(lcResponse['raw']);
     $('#lcLoading').hide();
     $('#lcVizualization').html('');
     displayLc(lcResponse['topics'], 'count');
     $('#lcTitle').show();
     $('#storySurveyForm').show();
     $('#reloadButton').show();
+    $('#lcRaw').show();
 
     chrome.tabs.executeScript(null, { file: "js/jquery-3.5.1.min.js" }, function() {
         chrome.tabs.executeScript(null, { file: "vizualization/popup-to-content.js" });
@@ -82,6 +85,9 @@ $(function(){
         var tabId = $( "#container" ).data( "tabid");
         $('#lcTab').load('html/tabs/lc.html', function(){
             load(tabId);
+            $('#showLcRaw').on('click', function(){
+                $( "#lcRaw" ).toggle();
+            });
         });
         $('#relativeTab').load('html/tabs/relative.html');
         $('#gcTab').load('html/tabs/gc.html');

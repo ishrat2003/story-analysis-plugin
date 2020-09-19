@@ -63,3 +63,37 @@ br.clear {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }
+
+
+.properNoun{
+    color: #2d7b30;
+}
+
+.noun{
+    color: #15f01cb3;
+}
+
+.adjective{
+    color: #f58207;
+}
+
+.adverb{
+    color: #616361;
+}
+
+.verb{
+    color: #0d74f2;
+}
+
+.positive{
+    color: #ffd700    ;
+}
+
+.negative{
+    color: #f71f07;
+}
+
+#lcVizualizationLabels span{
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+}
