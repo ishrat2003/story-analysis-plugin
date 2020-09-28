@@ -19,23 +19,52 @@ function init(tabId) {
 function loadContent(tabId){
     content = '';
     maxPCount = 0;
+    divSelector = '';
+    rawContent = '';
+    if ($('.story-body').length){
+        divSelector = '.story-body';
+        rawContent = $('.story-body').html();
+    }else if($('article').length){
+        divSelector = 'article';
+    }
+
+    rawContent = $(divSelector).html();
 
     storyInput[tabId] = {
         'title': $('h1').eq(0).text(),
         'description': $('meta[name=description]').attr("content"),
         'link': $(location).attr('href'),
         'pubDate': $('.date').data('datetime'),
-        'raw_content': $('.story-body').html()
+        'divSelector': divSelector,
+        'raw_content': rawContent
     };
 
-    $("div").each(function () {
-        setWinningDivContent(this, tabId);
-    });
+    if (divSelector == 'article'){
+        setArticleContent(divSelector, tabId);
+    }else{
+        $(divSelector).each(function () {
+            setWinningDivContent(this, tabId);
+        });
+    }
 
     chrome.storage.local.set({
         'storyInput': storyInput
     });
+}
 
+function setArticleContent(selector, tabId){
+    content = '';
+    $('div').removeClass('addBorder');
+    $(selector).children().each(function () {
+        if ($(this).data('component') == 'text-block') {
+            $(this).addClass('addBorder');
+            content += $(this).text().trim() + '. ';
+        }
+    });
+
+    if(content){
+        storyInput[tabId]['content'] = content;
+    }
 }
 
 function setWinningDivContent(div, tabId) {
