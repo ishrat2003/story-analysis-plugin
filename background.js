@@ -38,8 +38,9 @@ function readLc(storyInput, tabId) {
   }).done(function (data) {
     saveStoryInput(storyInput, 'lc', data, tabId);
     var lcData = data;
+    console.log(lcData);
     lcData['title'] = title;
-    lcData['topics'][0]['name'] = '←' + lcData['topics'][0]['name'];
+    lcData['concepts']['story_words'][0]['pure_word'] = '←' + lcData['concepts']['story_words'][0]['pure_word'];
     chrome.runtime.sendMessage({
       type: "storyPopupUpdateLc",
       tabId: tabId, 

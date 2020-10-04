@@ -11,11 +11,11 @@ function load(tabId){
     loadHide();
 
     chrome.storage.local.get(function(result){
-        if(result['storyInput'][tabId] && result['storyInput'][tabId]['lc']){
+        if(result['storyInput'] && result['storyInput'][tabId] && result['storyInput'][tabId]['lc']){
             console.log('loading existing data', result['storyInput'][tabId]);
             var lcResponse = result['storyInput'][tabId]['lc'];
             lcResponse['title'] = result['storyInput'][tabId]['title'];
-            lcResponse['topics'][0]['name'] = '←' + lcResponse['topics'][0]['name'];
+            lcResponse['concepts']['story_words'][0]['pure_word'] = '←' + lcResponse['concepts']['story_words'][0]['pure_word'];
             updateLc(lcResponse, tabId);
         } else {
             console.log('reloading');
@@ -40,10 +40,10 @@ function loadHide(){
 
 function updateLc(lcResponse) {
     $('#lcTitle').html('<h2 class="lcMainTitle">' + lcResponse['title'] + '</h2>');
-    showRaw(lcResponse['raw']);
+    showRaw(lcResponse);
     $('#lcLoading').hide();
     $('#lcVizualization').html('');
-    displayLc(lcResponse['topics'], 'count');
+    displayLc(lcResponse['concepts']['story_words'], 'position_weight_forward');
     $('#lcTitle').show();
     $('#storySurveyForm').show();
     $('#reloadButton').show();
