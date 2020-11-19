@@ -1,0 +1,76 @@
+<div id="survey" class="tabcontent" style="display:none;">
+    <div id="surveyTitle">Please review the visualization.</div>
+    <p id="message"></p>
+    <p id="error"></p>
+    <form id="storySurveyForm" action="" style="display:none;">        
+        <label for="fname"><span class="objective">User Code</span><br> Unique user identification. By default IP. Can be any valid unique string.</label>
+        <input type="text" id="user_code" name="user_code" placeholder="Your user code">
+
+        <label for="story_source">Story source</label>
+        <select id="story_source" name="story_source">
+        <option value="">None</option>
+        <option value="www.bbc.co.uk">BBC</option>
+        </select>
+
+        <label for="story_date">Story date</label>
+        <input type="text" id="story_date" name="story_date" placeholder="Story date for future reference">
+
+        <label for="story_link">Story link</label>
+        <input type="text" id="story_link" name="story_link" placeholder="Story url for future reference">
+
+        <label for="story_title">Story title</label>
+        <input type="text" id="story_title" name="story_title" placeholder="Story title for future reference">
+
+        <label for="news_topics">News topic(s)</label>
+        <input type="text" id="news_topics" name="news_topics" placeholder="List of topics">
+
+        <label for="when"><span class="objective">When</span><br> Does the visualization reflects the month/year of the story?</label>
+        <select id="when" name="when">
+        <option value="">None</option>
+        <option value="Some">Yes</option>
+        <option value="All">No</option>
+        </select>
+
+        <label for="who"><span class="objective">Who</span><br> Does the visualization reflects the main characters of the story?</label>
+        <select id="who" name="who">
+        <option value="">None</option>
+        <option value="Some">Some main characters</option>
+        <option value="All">All main characters</option>
+        </select>
+
+        <label for="what"><span class="objective">What</span><br>  Does the visualization reflects the main topics of the story?</label>
+        <select id="what" name="what">
+        <option value="">None</option>
+        <option value="Some">Some main characters</option>
+        <option value="All">All main topics</option>
+        </select>
+
+        <label for="where"><span class="objective">Where</span><br>  Does the visualization reflects the location of the story?</label>
+        <select id="where" name="where">
+        <option value="">None</option>
+        <option value="Some">Some locations</option>
+        <option value="All">All main locations</option>
+        </select>
+
+        <label for="why"><span class="objective">Why</span><br> Does the visualization reflects the important contribution of the story?</label>
+        <select id="why" name="why">
+        <option value="">None</option>
+        <option value="Some">Some rationals</option>
+        <option value="All">All main rationals</option>
+        </select>
+
+        <label for="rate"><span class="objective">Confidence</span><br> Does the visualization represents the story of the news? (1 = no, 5 = yes)</label><br>
+        <div class="rating">
+        <input type="radio" id="star5" name="confidence" value="5" /><label for="star5" title="Rocks!">5 stars</label>
+        <input type="radio" id="star4" name="confidence" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+        <input type="radio" id="star3" name="confidence" value="3" /><label for="star3" title="Meh">3 stars</label>
+        <input type="radio" id="star2" name="confidence" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
+        <input type="radio" id="star1" name="confidence" value="1" /><label for="star1" title="Sucks big time">1 star</label>
+        </div>
+        
+        <br class="clear" />
+        <br class="clear" />
+    </form>
+     <input type="button" id="storySurveySubmit" value="Submit">
+     <div id="surveyLoading" style="display:none;"><img src="images/loading.gif" alt="Loading"></div>
+  </div>

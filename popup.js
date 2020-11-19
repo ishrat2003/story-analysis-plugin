@@ -79,6 +79,7 @@ function updateLc(lcResponse) {
 // };
 
 $(function(){
+    $('form').submit(function(event){event.preventDefault();});
     $('#container').load('html/header.html');
 
     $('#tabs').load('html/tabs.html', function(){
@@ -89,8 +90,61 @@ $(function(){
                 $( "#lcRaw" ).toggle();
             });
         });
-        $('#relativeTab').load('html/tabs/relative.html');
-        $('#gcTab').load('html/tabs/gc.html');
+        // $('#relativeTab').load('html/tabs/relative.html');
+        // $('#gcTab').load('html/tabs/gc.html');
+        $('#surveyTab').load('html/tabs/survey.html', function(){
+            var tabId = $( "#container" ).data( "tabid");
+            chrome.storage.local.get(function(result){
+                if(result['storyInput'] && result['storyInput'][tabId]){
+                    $('#story_date').val(result['storyInput'][tabId]['pubDate']);
+                    $('#story_source').val(result['storyInput'][tabId]['source']);
+                    $('#story_link').val(result['storyInput'][tabId]['link']);
+                    $('#story_title').val(result['storyInput'][tabId]['title']);
+                    $('#news_topics').val(result['storyInput'][tabId]['news_topics']);
+                    $.getJSON("https://api.ipify.org?format=json", function(data) { 
+                        $('#user_code').val(data.ip);
+                });
+                }
+            });
+            $('#storySurveySubmit').on('click', function(){
+                var data = $('#storySurveyForm').serializeArray().reduce(function(obj, item) {
+                    obj[item.name] = item.value;
+                    return obj;
+                }, {});
+                $( "#error", "#message").html('');
+                $.ajax({
+                    url : "http://127.0.0.1:3500/survey", // Url of backend (can be python, php, etc..)
+                    type: "POST", // data type (can be get, post, put, delete)
+                    dataType: 'json',
+                    data : JSON.stringify(data), // data in json format
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    success: function(response, textStatus, jqXHR) {
+                        console.log(response);
+                        if(response.errors){
+                            $("#error").html(response.errors);
+                            $('#storySurveySubmit').show();
+                            $('#surveyLoading').hide();
+                        }else{
+                            $( "#message" ).text('Thanks for the review.');
+                            $('#storySurveyForm, #surveyLoading').hide();
+                        }
+                        $("html").animate({ scrollTop: 0 }, "slow");
+                        
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $('#storySurveySubmit').show();
+                        $('#surveyLoading').hide();
+                        ( "#error" ).text('Failed to save review.');
+                        $("html").animate({ scrollTop: 0 }, "slow");
+                    }
+                });
+                $('#storySurveySubmit').hide();
+                $('#surveyLoading').show();
+            });
+        });
         $('#aboutTab').load('html/tabs/about.html');
         $('#reloadButton').on('click', function(){
             console.log('clicked');
@@ -103,5 +157,7 @@ $(function(){
             $(divId).show();
         });
     });
+
+
     
 });

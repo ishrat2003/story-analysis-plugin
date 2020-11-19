@@ -11,7 +11,7 @@ input[type=text], select, textarea {
   resize: vertical;
 }
 
-input[type=submit] {
+input[type=button] {
   background-color: #4CAF50;
   color: white;
   padding: 12px 20px;
@@ -20,7 +20,7 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]:hover {
+input[type=button]:hover {
   background-color: #45a049;
 }
 
@@ -210,4 +210,14 @@ input[type=submit]:hover {
 }
 .control-radio input:checked + .control_indicator::before {
     animation-name: s-ripple-dup;
+}
+
+.objective, #message, #surveyTitle {
+    color: green;
+    font-size: large;
+}
+
+#error{
+    color: red;
+    font-size: large;
 }
