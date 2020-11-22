@@ -128,7 +128,7 @@ $(function(){
                             $('#storySurveySubmit').show();
                             $('#surveyLoading').hide();
                         }else{
-                            $( "#message" ).text('Thanks for the review.');
+                            $( "#message" ).html('Thanks for the review.');
                             $('#storySurveyForm, #surveyLoading').hide();
                         }
                         $("html").animate({ scrollTop: 0 }, "slow");
@@ -137,7 +137,7 @@ $(function(){
                     error: function (jqXHR, textStatus, errorThrown) {
                         $('#storySurveySubmit').show();
                         $('#surveyLoading').hide();
-                        ( "#error" ).text('Failed to save review.');
+                        ( "#error" ).html('Failed to save review.');
                         $("html").animate({ scrollTop: 0 }, "slow");
                     }
                 });
