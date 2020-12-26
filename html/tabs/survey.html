@@ -1,5 +1,5 @@
 <div id="survey" class="tabcontent" style="display:none;">
-    <div id="surveyTitle">Please review the visualization.</div>
+    <div id="surveyTitle">Please review the news.</div>
     <p id="message"></p>
     <p id="error"></p>
     <form id="storySurveyForm" action="" style="display:none;">        
@@ -13,7 +13,8 @@
         </select>
 
         <label for="story_date">Story date</label>
-        <input type="text" id="story_date" name="story_date" placeholder="Story date for future reference">
+        <input type="hidden" id="story_date" name="story_date">
+        <input type="hidden" id="open_date_time" name="open_date_time">
 
         <label for="story_link">Story link</label>
         <input type="text" id="story_link" name="story_link" placeholder="Story url for future reference">
@@ -24,41 +25,34 @@
         <label for="news_topics">News topic(s)</label>
         <input type="text" id="news_topics" name="news_topics" placeholder="List of topics">
 
-        <label for="when_happened"><span class="objective">When</span><br> Does the visualization reflects the month/year of the story?</label>
+        <label for="when_happened"><span class="objective">When</span> did the incident take place?</label>
         <select id="when_happened" name="when_happened">
         <option value="">None</option>
-        <option value="Some">Yes</option>
-        <option value="All">No</option>
+        <option value="today">Today</option>
+        <option value="current_week">This week</option>
+        <option value="few_weeks_ago">Few weeks ago</option>
+        <option value="current_month">This month</option>
+        <option value="few_month_ago">Few months ago</option>
+        <option value="current_month">This year</option>
+        <option value="few_years_ago">Few years ago</option>
         </select>
 
-        <label for="who"><span class="objective">Who</span><br> Does the visualization reflects the main characters of the story?</label>
-        <select id="who" name="who">
-        <option value="">None</option>
-        <option value="Some">Some main characters</option>
-        <option value="All">All main characters</option>
-        </select>
+        <label for="who"><span class="objective">Who</span> are the main characters of the story?</label>
+        <input type="text" id="who" name="who" placeholder="One/Comma separated list of persons">
 
-        <label for="what"><span class="objective">What</span><br>  Does the visualization reflects the main topics of the story?</label>
-        <select id="what" name="what">
-        <option value="">None</option>
-        <option value="Some">Some main characters</option>
-        <option value="All">All main topics</option>
-        </select>
+        <label for="what"><span class="objective">What</span> is the story about?</label>
+        <input type="text" id="what" name="what" placeholder="One/Comma separated list of topics">
 
-        <label for="where_location"><span class="objective">Where</span><br>  Does the visualization reflects the location of the story?</label>
-        <select id="where_location" name="where_location">
-        <option value="">None</option>
-        <option value="Some">Some locations</option>
-        <option value="All">All main locations</option>
-        </select>
+        <label for="where_location"><span class="objective">Where</span> did the story take place?</label>
+        <input type="text" id="where_location" name="where_location" placeholder="One/Comma separated list of locations">
 
-        <label for="why"><span class="objective">Why</span><br> Does the visualization reflects the important contribution of the story?</label>
-        <select id="why" name="why">
-        <option value="">None</option>
-        <option value="Some">Some rationals</option>
-        <option value="All">All main rationals</option>
-        </select>
+        <label for="why"><span class="objective">Why</span> did the story happen?</label>
+        <input type="text" id="why" name="why" placeholder="One/Comma separated list of reasons">
+        
+        <label for="summary">Write a <span class="objective">summary</span> of the story in a few sentences.</label>
+        <textarea id="summary" name="summary" rows="5" cols="50" placeholder="Few sentences about the story"></textarea>
 
+        <br>
         <label for="rate"><span class="objective">Confidence</span><br> Does the visualization represents the story of the news? (1 = no, 5 = yes)</label><br>
         <div class="rating">
         <input type="radio" id="star5" name="confidence" value="5" /><label for="star5" title="Rocks!">5 stars</label>

@@ -4,12 +4,12 @@
     outline: none;
 } */
 
-.lcTopTitle {
+.lcTopTitle{
     color: #0f9f14;
     text-align: center;
 }
 
-.lcMainTitle {
+.lcMainTitle{
     color: #4CAF50;
     text-align: center;
 }
@@ -97,3 +97,5 @@ br.clear {
     padding: 5px 5px 5px 5px;
     margin: 5px 5px 5px 5px;
 }
+
+.link { stroke: #999; stroke-opacity: .6; stroke-width: 1px; }

@@ -49,11 +49,24 @@ function updateLc(lcResponse) {
     $('#reloadButton').show();
     $('#lcRaw').show();
 
+    if (lcResponse['concepts']['graph']) {
+        displayKnowledgeGraph(lcResponse['concepts']['graph']['links'], lcResponse['concepts']['graph']['nodes']);
+        $('#knowledgegraphLoading').hide();
+    }
     chrome.tabs.executeScript(null, { file: "js/jquery-3.5.1.min.js" }, function() {
         chrome.tabs.executeScript(null, { file: "vizualization/popup-to-content.js" });
     });
 }
 
+function getCurrentDateTime(){
+    var currentdate = new Date(); 
+    return currentdate.getDate() + "-"
+            + (currentdate.getMonth()+1)  + "-" 
+            + currentdate.getFullYear() + " "  
+            + currentdate.getHours() + ":"  
+            + currentdate.getMinutes() + ":" 
+            + currentdate.getSeconds();
+}
 
 //let changeColor = document.getElementById('changeColor');
 
@@ -92,6 +105,7 @@ $(function(){
         });
         // $('#relativeTab').load('html/tabs/relative.html');
         // $('#gcTab').load('html/tabs/gc.html');
+        $('#knowledgegraphTab').load('html/tabs/knowledgegraph.html');
         $('#surveyTab').load('html/tabs/survey.html', function(){
             var tabId = $( "#container" ).data( "tabid");
             chrome.storage.local.get(function(result){
@@ -101,6 +115,7 @@ $(function(){
                     $('#story_link').val(result['storyInput'][tabId]['link']);
                     $('#story_title').val(result['storyInput'][tabId]['title']);
                     $('#news_topics').val(result['storyInput'][tabId]['news_topics']);
+                    $('#open_date_time').val(getCurrentDateTime());
                     $.getJSON("https://api.ipify.org?format=json", function(data) { 
                         $('#user_code').val(data.ip);
                 });
@@ -111,6 +126,7 @@ $(function(){
                     obj[item.name] = item.value;
                     return obj;
                 }, {});
+                data['close_date_time'] = getCurrentDateTime();
                 $( "#error", "#message").html('');
                 $.ajax({
                     url : "http://127.0.0.1:3500/survey", // Url of backend (can be python, php, etc..)

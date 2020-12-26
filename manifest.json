@@ -1,7 +1,7 @@
 {
-    "name": "Story survey",
+    "name": "Story Analysis",
     "version": "0.01",
-    "description": "User survey on contextual story",
+    "description": "Contextual story analysis",
     "background": {
         "scripts": [
             "js/jquery-3.5.1.min.js",
@@ -18,7 +18,7 @@
             "content.js"
         ],
         "css": [
-            "css/survey.css"
+            "css/main.css"
         ]
     }],
     "page_action": {
