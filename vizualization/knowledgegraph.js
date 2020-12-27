@@ -1,14 +1,28 @@
+var kgColor = {
+    "organization": "#259328bf",
+    "time": "#f58207",
+    "person": "#616361",
+    "location": "#589bed",
+    "others": "#ffd700",
+    "default": "grey"
+  };
+
 function displayKnowledgeGraph(links, nodes) {
     var margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 400 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
-    
-    var colors = d3.scaleOrdinal(d3.schemeCategory10);
+        width = 600 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+    d3.select("#knowledgegraphVizualization").select("svg").remove();
+    d3.select("#knowledgegraphVizualization").select("div").remove();
+
     var svg = d3.select("#knowledgegraphVizualization")
             .append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
             .append("g");
+    var tooltip = d3.select("#knowledgegraphVizualization").append("div")	
+        .attr("class", "tooltip")				
+        .style("opacity", 0);
   
     svg.append('defs').append('marker')
         .attrs({'id':'arrowhead',
@@ -67,8 +81,10 @@ function displayKnowledgeGraph(links, nodes) {
         .attr('xlink:href', function (d, i) {return '#edgepath' + i})
         .style("text-anchor", "middle")
         .style("pointer-events", "none")
+        .style("fill", function(d){return kgColor[d.color];})
         .attr("startOffset", "50%")
         .text(function (d) {return d.type});
+        
 
     var node = svg.selectAll(".node")
         .data(nodes)
@@ -83,14 +99,31 @@ function displayKnowledgeGraph(links, nodes) {
 
     node.append("circle")
         .attr("r", 5)
-        .style("fill", function (d, i) {return colors(i);})
+        .style("fill", function (d, i) {return kgColor[d.color];})
 
     node.append("title")
         .text(function (d) {return d.id;});
 
     node.append("text")
         .attr("dy", -3)
-        .text(function (d) {return d.name+":"+d.label;});
+        .text(function (d) {return d.name})
+        .on("mouseover", function(d) {		
+            tooltip.transition()		
+                .duration(200)		
+                .style("opacity", .9);		
+            tooltip.html(
+                '<b>' + d.name + '</b></br>'
+                + '<b style="color:red;">' + d.label + '</b></br>'
+                + '<p>' + d.tooltip + '</p>'
+                )	
+                .style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");	
+            })					
+        .on("mouseout", function(d) {		
+            tooltip.transition()
+                .duration(500)		
+                .style("opacity", 0);	
+        });
 
     simulation
         .nodes(nodes)

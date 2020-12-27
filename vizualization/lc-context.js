@@ -16,6 +16,8 @@ function displayLc(data, statFiedName){
   innerRadius = 100,
   outerRadius = Math.min(width, height) / 4;   // the outerRadius goes from the middle of the SVG area to the border
 
+  d3.select("#lcVizualization").select("div").remove();
+
   // append the svg object
   var svg = d3.select("#lcVizualization")
   .append("svg")
@@ -24,6 +26,10 @@ function displayLc(data, statFiedName){
   .append("g")
     .attr("transform", "translate(" + (width / 2 + margin.left) + "," + (height / 2 + margin.top) + ")");
   
+  var tooltip = d3.select("#lcVizualization").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 1);
+
   // X scale: common for 2 data series
   var x = d3.scaleBand()
     .range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = all around the circle. If I stop at 1Pi, it will be around a half circle
@@ -84,4 +90,29 @@ function displayLc(data, statFiedName){
       .endAngle(function(d) { return x(d.pure_word + '-' + d.count) + x.bandwidth(); })
       .padAngle(0.01)
       .padRadius(innerRadius));
+
+    svg.selectAll('text')
+      .on("mouseover", function(d) {
+        console.log(d);
+        var html = '<h3 style="color:green;">' + d.pure_word + '</h3>'
+        + '<b>Category: </b>' + ( d.category || d.type || '') + '<br>'
+        + '<b>Occurrence: </b>' + d.count + '<br>'
+        + '<b>Forward position weight: </b>' + d.position_weight_forward.toFixed(2) + '<br>'
+        + '<b>Backward position weight: </b>' + d.position_weight_backward.toFixed(2) + '<br>';
+        if (d.tooltip !== d.pure_word){
+          html += '<p>' + d.tooltip + '</p>';
+        }
+        
+        tooltip.style("display", "inline");	
+        tooltip.transition()		
+            .duration(200)		
+            .style("opacity", .9);		
+        tooltip.html(html);	
+        })					
+        .on("mouseout", function(d) {
+            tooltip.style("display", "none");		
+            tooltip.transition()
+                .duration(500)		
+                .style("opacity", 0);	
+        })
 }
