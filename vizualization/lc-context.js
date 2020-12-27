@@ -3,10 +3,15 @@ var lcColor = {
   "noun": "#259328bf",
   "adjective": "#f58207",
   "adverb": "#616361",
-  "verb": "#589bed",
+  "verb": "#181b1d",
   "positive": "#ffd700",
-  "negative": "#f71f07"
+  "negative": "#f71f07",
+  "person": "#1b2bde",
+  "location": "#784698",
+  "organization": "#43a9a7",
+  "others": "#5e615e",
 };
+
 function displayLc(data, statFiedName){
   console.log('displayLc', data);
   // set the dimensions and margins of the graph
@@ -94,8 +99,9 @@ function displayLc(data, statFiedName){
     svg.selectAll('text')
       .on("mouseover", function(d) {
         console.log(d);
-        var html = '<h3 style="color:green;">' + d.pure_word + '</h3>'
+        var html = '<h3 style="color:green;" class="center">' + d.pure_word + '</h3>'
         + '<b>Category: </b>' + ( d.category || d.type || '') + '<br>'
+        + '<b>Sentiment: </b>' + ( d.sentiment || '') + '<br>'
         + '<b>Occurrence: </b>' + d.count + '<br>'
         + '<b>Forward position weight: </b>' + d.position_weight_forward.toFixed(2) + '<br>'
         + '<b>Backward position weight: </b>' + d.position_weight_backward.toFixed(2) + '<br>';

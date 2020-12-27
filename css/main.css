@@ -82,7 +82,7 @@ br.clear {
 }
 
 .verb{
-    color: #589bed;
+    color: #181b1d;
 }
 
 .positive{
@@ -91,6 +91,26 @@ br.clear {
 
 .negative{
     color: #f71f07;
+}
+
+.person{
+    color: #1b2bde;
+}
+
+.location{
+    color: #784698;
+}
+
+.organization{
+    color: #43a9a7;
+}
+
+.others{
+    color: #5e615e;
+}
+
+.story_about, .story_period{
+    color: #259328bf;
 }
 
 #lcVizualizationLabels span{

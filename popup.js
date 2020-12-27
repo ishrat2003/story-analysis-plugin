@@ -15,7 +15,7 @@ function load(tabId){
             console.log('loading existing data', result['storyInput'][tabId]);
             var lcResponse = result['storyInput'][tabId]['lc'];
             lcResponse['title'] = result['storyInput'][tabId]['title'];
-            lcResponse['concepts']['story_words'][0]['pure_word'] = '←' + lcResponse['concepts']['story_words'][0]['pure_word'];
+            lcResponse['concepts']['story_words'][0]['pure_word'] = '← - ' + lcResponse['concepts']['story_words'][0]['pure_word'];
             updateLc(lcResponse, tabId);
         } else {
             console.log('reloading');
