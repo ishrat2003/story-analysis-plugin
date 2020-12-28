@@ -19,6 +19,24 @@
     </head>
     <body class="storySurveyPopup">
       <div id="container" class="container"></div>
-      <div id="tabs"></div>
+      <div id="entry" class="container">
+        <p>
+            This tool has been designed for contextual story analysis. Currently, 
+            it is activated for the BBC News item page analysis. Feedbacks are only collected 
+            in the experimental environment for cognitive analysis of a story. Please select one of
+            the following options based on provided instructions given prior to the experiment session.
+        </p>
+        <br class="clear">
+        <input type="radio" id="feedback_only" name="feedback" value="feedback_only">
+        <label for="feedback_only">Feedback</label><br>
+        <br class="clear">
+        <input type="radio" id="feedback_with_viz" name="feedback" value="feedback_with_viz">
+        <label for="feedback_with_viz">Feedback with vizualization</label><br>
+        <br class="clear">
+      </div>
+      <br class="clear"><br class="clear">
+      <div id="analysis">
+        <div id="tabs"></div>
+      </div>
     </body>
   </html>

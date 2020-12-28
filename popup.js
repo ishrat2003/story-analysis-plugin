@@ -92,6 +92,20 @@ function getCurrentDateTime(){
 // };
 
 $(function(){
+    $('#analysis').hide();
+
+    $('#feedback_only').on('click', function(){
+        $('#lcTab, #lcTabLink, #knowledgegraphTab, #knowledgegraphTabLink').hide();
+        $('#analysis').show();
+        $('#surveyTabLink').click();
+    });
+
+    $('#feedback_with_viz').on('click', function(){
+        $('#lcTab, #lcTabLink, #knowledgegraphTab, #knowledgegraphTabLink').show();
+        $('#analysis').show();
+        $('#lcTabLink').click();
+    });
+
     $('form').submit(function(event){event.preventDefault();});
     $('#container').load('html/header.html');
 

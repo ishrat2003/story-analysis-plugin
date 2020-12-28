@@ -3,10 +3,10 @@ function showRaw(data){
     $('#lcRaw, #lcRawTop').html('');
     $('#lcRawTop').prepend('<h3>' + data['concepts']['story_what_about'] + ' <a href="#lcRawBlock">Check extracted concepts</a></h3>');
     
-    // $('#lcRaw').append(getProperNoun(data['concepts']['topic_words'], 'Tags'));
-    // $('#lcRaw').append('<br class="clear"><br class="clear">');
+    $('#lcRaw').append(getProperNoun(data['concepts']['topic_words'], 'Topics'));
+    $('#lcRaw').append('<br class="clear"><br class="clear">');
 
-    $('#lcRaw').append(getProperNoun(data['concepts']['proper_nouns'], 'Proper Nouns'));
+    //$('#lcRaw').append(getProperNoun(data['concepts']['proper_nouns'], 'Proper Nouns'));
     // $('#lcRaw').append('<br class="clear"><br class="clear">');
 
     // $('#lcRaw').append(getWords(data['noun'], 'Noun'));
