@@ -1,4 +1,4 @@
-var analysisUrl = "http://127.0.0.1:3500";
+var analysisUrl = "https://247dtw4y0i.execute-api.eu-west-1.amazonaws.com/Production/story-analysis"
 
 var rule1 = {
   conditions: [
